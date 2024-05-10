@@ -1,0 +1,9 @@
+{
+  "module": {
+    "name": "orientation_locker",
+    "type": "har",
+    "deviceTypes": [
+      "default"
+    ]
+  }
+}
