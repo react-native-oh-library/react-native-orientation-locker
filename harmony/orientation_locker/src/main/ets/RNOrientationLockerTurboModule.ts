@@ -123,11 +123,16 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
       let AppOrientation = this.getOrientationString(displayClass.orientation);
       callback(AppOrientation);
     } catch (e) {
-      callback(null);
+      callback(err);
     }
   }
 
   getAutoRotateState(callback: (state: boolean) => void): void {
    callback(true)
+  }
+
+   __onDestroy__(): void {
+      super.__onDestroy__()
+      display.off('change')
   }
 }
