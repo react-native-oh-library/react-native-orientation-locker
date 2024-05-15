@@ -32,8 +32,7 @@
     "peerDependencies": {
         "react": ">=16.13.1",
         "react-native": ">=0.63.2",
-        "react-native-windows": ">=0.63.3",
-        "react-native-create-thumbnail": "2.0.0"
+        "react-native-windows": ">=0.63.3"
     },
     "peerDependenciesMeta": {
         "react-native-windows": {
