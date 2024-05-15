@@ -1,6 +1,6 @@
 {
     "name": "@react-native-oh-tpl/react-native-orientation-locker",
-    "version": "1.7.0-0.0.1",
+    "version": "1.7.0-0.0.2",
     "summary": "A react-native module that can listen on orientation changing of device",
     "description": "A react-native module that can listen on orientation changing of device, get current orientation, lock to preferred orientation.",
     "homepage": "https://github.com/wonday/react-native-orientation-locker",
@@ -8,7 +8,7 @@
     "types": "index.d.ts",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/wonday/react-native-orientation-locker.git"
+        "url": "git://github.com/react-native-oh-library/react-native-orientation-locker.git"
     },
     "keywords": [
         "orientation",
@@ -16,7 +16,8 @@
         "android",
         "ios",
         "windows",
-        "screen"
+        "screen",
+        "harmony"
     ],
     "author": {
         "name": "Wonday",
@@ -31,7 +32,8 @@
     "peerDependencies": {
         "react": ">=16.13.1",
         "react-native": ">=0.63.2",
-        "react-native-windows": ">=0.63.3"
+        "react-native-windows": ">=0.63.3",
+        "react-native-create-thumbnail": "2.0.0"
     },
     "peerDependenciesMeta": {
         "react-native-windows": {
@@ -42,5 +44,13 @@
         "react": "16.13.1",
         "react-native": "0.69.12",
         "react-native-windows": "^0.63.3"
+    },
+    "harmony":{
+        "alias":"react-native-orientation-locker",
+        "codegenConfig": {
+            "specPaths": [
+            "./src"
+            ]
+        }
     }
 }
