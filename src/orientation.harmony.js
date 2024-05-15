@@ -27,7 +27,7 @@ function getKey(listener) {
       return "F";
     }
     Object.defineProperty(listener, META, {
-      value: "L" + ++id
+      value: "L" + (id+1)
     });
   }
   return listener[META];
