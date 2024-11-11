@@ -1,5 +1,5 @@
 import { RNOHContext, RNPackage, TurboModulesFactory } from '@rnoh/react-native-openharmony/ts'
-import type { TurboModule } from '@rnoh/react-native-openharmony/ts'
+import type { TurboModule, TurboModuleContext } from '@rnoh/react-native-openharmony/ts'
 import { TM } from '@rnoh/react-native-openharmony/generated/ts'
 import { RNOrientationLockerTurboModule } from './RNOrientationLockerTurboModule'
 
@@ -19,7 +19,7 @@ class RNOreitationLockerTurboModuleFactory extends  TurboModulesFactory {
 }
 
 export class RNOrientationLockerPackage extends RNPackage {
-  createTurboModulesFactory(ctx: RNOHContext): TurboModulesFactory {
+  createTurboModulesFactory(ctx: TurboModuleContext): TurboModulesFactory {
     return new RNOreitationLockerTurboModuleFactory(ctx)
   }
 }
