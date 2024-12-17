@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "react-native-orientation-locker",
+        "License": "MIT License",
+        "License File": "https://github.com/wonday/react-native-orientation-locker/blob/master/LICENSE",
+        "Version Number": "1.7.0",
+		"Owner" : "xiafeng@huawei.com",
+        "Upstream URL": "https://github.com/wonday/react-native-orientation-locker",
+        "Description": "A react-native module that can listen on orientation changing of device, get current orientation, lock to preferred orientation."
+    }
+]

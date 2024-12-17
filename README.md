@@ -1,10 +1,13 @@
 # @react-native-oh-tpl/react-native-orientation-locker
 
-## 文档地址 / Documentation URL 
+This project is based on [react-native-orientation-locker](https://github.com/wonday/react-native-orientation-locker)
 
-[中文 / Chinese](https://gitee.com/react-native-oh-library/usage-docs/blob/master/zh-cn/react-native-orientation-locker.md)
+## Documentation
 
-## 请悉知 / Acknowledgements
+- [中文](https://gitee.com/react-native-oh-library/usage-docs/blob/master/zh-cn/react-native-orientation-locker.md)
 
-本项目基于 [The MIT License (MIT)](https://github.com/react-native-oh-library/react-native-orientation-locker/blob/sig/LICENSE) ，请自由地享受和参与开源。
+- [English](https://gitee.com/react-native-oh-library/usage-docs/blob/master/en/react-native-orientation-locker.md)
 
+## License
+
+This library is licensed under [The MIT License (MIT)](https://github.com/wonday/react-native-orientation-locker/blob/master/LICENSE)
