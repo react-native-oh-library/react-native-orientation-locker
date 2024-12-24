@@ -34,11 +34,11 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
     if (orientation === 0) {
       return 'PORTRAIT';
     } else if (orientation === 1) {
-      return 'LANDSCAPE_LEFT';
+      return 'LANDSCAPE-RIGHT';
     } else if (orientation === 2) {
       return 'PORTRAIT-UPSIDEDOWN';
     } else if (orientation === 3) {
-      return 'LANDSCAPE_RIGHT';
+      return 'LANDSCAPE-LEFT';
     } else {
       return 'UNKNOWN';
     }
