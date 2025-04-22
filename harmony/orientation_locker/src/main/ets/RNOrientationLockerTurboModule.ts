@@ -11,13 +11,20 @@ import display from '@ohos.display'
 import { BusinessError } from '@kit.BasicServicesKit'
 
 export class RNOrientationLockerTurboModule extends TurboModule implements TM.OreitationLockerNativeModule.Spec {
+  private lastDeviceOrientationValue:string
+
   constructor(ctx) {
     super(ctx)
     display.on('change', () => {
+      let deviceOrientationValue = this.lastDeviceOrientationValue;
       let displayValue = display.getDefaultDisplaySync();
       let displayValueString = this.getOrientationString(displayValue.orientation);
+      deviceOrientationValue = displayValueString;
       ctx.rnInstance.emitDeviceEvent('orientationDidChange', { orientation: displayValueString })
-      ctx.rnInstance.emitDeviceEvent('deviceOrientationDidChange', { deviceOrientation: displayValueString })
+      if(this.lastDeviceOrientationValue != deviceOrientationValue){
+        this.lastDeviceOrientationValue = deviceOrientationValue;
+        ctx.rnInstance.emitDeviceEvent('deviceOrientationDidChange', { deviceOrientation: displayValueString })
+      }
     })
   }
 
@@ -46,6 +53,7 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
 
   private  sendLockEvent(orientation: number) {
     let orientationString = this.getOrientationString(orientation)
+    this.lastDeviceOrientationValue = orientationString;
     this.ctx.rnInstance.emitDeviceEvent('lockDidChange', { orientation: orientationString })
   }
 
@@ -57,7 +65,8 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
           if (err.code) {
             return;
           }
-          this.sendLockEvent(orientation)
+          // window.Orientation属性与displayValue.orientation对齐需要 orientation - 1
+          this.sendLockEvent(orientation - 1)
         });
       }
     })
