@@ -11,7 +11,7 @@ import display from '@ohos.display'
 import { BusinessError } from '@kit.BasicServicesKit'
 
 export class RNOrientationLockerTurboModule extends TurboModule implements TM.OreitationLockerNativeModule.Spec {
-  private lastDeviceOrientationValue:string
+  private lastDeviceOrientationValue:string = this.getOrientationString(display.getDefaultDisplaySync().orientation);
 
   constructor(ctx) {
     super(ctx)
@@ -53,7 +53,6 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
 
   private  sendLockEvent(orientation: number) {
     let orientationString = this.getOrientationString(orientation)
-    this.lastDeviceOrientationValue = orientationString;
     this.ctx.rnInstance.emitDeviceEvent('lockDidChange', { orientation: orientationString })
   }
 
