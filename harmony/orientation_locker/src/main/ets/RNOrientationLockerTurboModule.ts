@@ -20,9 +20,9 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
       let displayValue = display.getDefaultDisplaySync();
       let displayValueString = this.getOrientationString(displayValue.orientation);
       deviceOrientationValue = displayValueString;
-      ctx.rnInstance.emitDeviceEvent('orientationDidChange', { orientation: displayValueString })
       if(this.lastDeviceOrientationValue != deviceOrientationValue){
         this.lastDeviceOrientationValue = deviceOrientationValue;
+        ctx.rnInstance.emitDeviceEvent('orientationDidChange', { orientation: displayValueString })
         ctx.rnInstance.emitDeviceEvent('deviceOrientationDidChange', { deviceOrientation: displayValueString })
       }
     })
