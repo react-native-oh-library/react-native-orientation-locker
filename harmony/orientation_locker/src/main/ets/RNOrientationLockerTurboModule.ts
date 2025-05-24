@@ -9,10 +9,11 @@ import { TM } from '@rnoh/react-native-openharmony/generated/ts'
 import window from '@ohos.window'
 import display from '@ohos.display'
 import { BusinessError } from '@kit.BasicServicesKit'
+import  sensor  from '@ohos.sensor';
 
 export class RNOrientationLockerTurboModule extends TurboModule implements TM.OreitationLockerNativeModule.Spec {
   private lastDeviceOrientationValue:string = this.getOrientationString(display.getDefaultDisplaySync().orientation);
-
+  private lastDeviceSensorOrientationValue:string = "";
   constructor(ctx) {
     super(ctx)
     display.on('change', () => {
@@ -23,9 +24,29 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
       if(this.lastDeviceOrientationValue != deviceOrientationValue){
         this.lastDeviceOrientationValue = deviceOrientationValue;
         ctx.rnInstance.emitDeviceEvent('orientationDidChange', { orientation: displayValueString })
-        ctx.rnInstance.emitDeviceEvent('deviceOrientationDidChange', { deviceOrientation: displayValueString })
       }
     })
+
+    sensor.on(sensor.SensorId.ORIENTATION, (data: sensor.OrientationResponse) => {
+      console.info("orientation change z value:"+data.alpha)
+      let deviceOrientationValue:string = this.lastDeviceSensorOrientationValue;
+      let orientation=data.alpha
+      if (orientation == -1) {
+        deviceOrientationValue = "UNKNOWN";
+      } else if (orientation > 355 || orientation < 5) {
+        deviceOrientationValue = "PORTRAIT";
+      } else if (orientation > 85 && orientation < 95) {
+        deviceOrientationValue = "LANDSCAPE-RIGHT";
+      } else if (orientation > 175 && orientation < 185) {
+        deviceOrientationValue = "PORTRAIT-UPSIDEDOWN";
+      } else if (orientation > 265 && orientation < 275) {
+        deviceOrientationValue = "LANDSCAPE-LEFT";
+      }
+      if (this.lastDeviceSensorOrientationValue !== deviceOrientationValue) {
+        ctx.rnInstance.emitDeviceEvent('deviceOrientationDidChange', { deviceOrientation: deviceOrientationValue })
+        this.lastDeviceSensorOrientationValue = deviceOrientationValue;
+      }
+    }, { interval: 500000000 });
   }
 
   private windowClass: window.Window | undefined = undefined
