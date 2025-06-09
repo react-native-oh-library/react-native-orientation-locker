@@ -46,7 +46,7 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
         ctx.rnInstance.emitDeviceEvent('deviceOrientationDidChange', { deviceOrientation: deviceOrientationValue })
         this.lastDeviceSensorOrientationValue = deviceOrientationValue;
       }
-    }, { interval: 500000000 });
+    }, { interval: 100000000 });
   }
 
   private windowClass: window.Window | undefined = undefined
