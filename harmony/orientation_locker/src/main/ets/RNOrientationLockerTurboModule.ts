@@ -11,6 +11,8 @@ import display from '@ohos.display'
 import { BusinessError } from '@kit.BasicServicesKit'
 import  sensor  from '@ohos.sensor';
 
+const ORIENTATION_UNKNOWN = -1;
+
 export class RNOrientationLockerTurboModule extends TurboModule implements TM.OreitationLockerNativeModule.Spec {
   private lastDeviceOrientationValue:string = this.getOrientationString(display.getDefaultDisplaySync().orientation);
   private lastDeviceSensorOrientationValue:string = "";
@@ -27,11 +29,23 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
       }
     })
 
-    sensor.on(sensor.SensorId.ORIENTATION, (data: sensor.OrientationResponse) => {
-      console.info("orientation change z value:"+data.alpha)
+    sensor.on(sensor.SensorId.ACCELEROMETER, (data: sensor.AccelerometerResponse) => {
+      const X = -data.x;
+      const Y = -data.y;
+      const Z = -data.z;
+      const xyMagnitude = X * X + Y * Y;
+      const zSquared = Z * Z;
+      let orientation = ORIENTATION_UNKNOWN;
+      if (xyMagnitude * 4 >= zSquared) {
+        const angleRad = Math.atan2(-Y, X);
+        let angleDeg = 90 - (angleRad * 180 / Math.PI);
+        while (angleDeg >= 360) angleDeg -= 360;
+        while (angleDeg < 0) angleDeg += 360;
+        orientation = Math.round(angleDeg);
+      }
+
       let deviceOrientationValue:string = this.lastDeviceSensorOrientationValue;
-      let orientation=data.alpha
-      if (orientation == -1) {
+      if (orientation === ORIENTATION_UNKNOWN) {
         deviceOrientationValue = "UNKNOWN";
       } else if (orientation > 355 || orientation < 5) {
         deviceOrientationValue = "PORTRAIT";
@@ -169,5 +183,6 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
    __onDestroy__(): void {
       super.__onDestroy__()
       display.off('change')
+      sensor.off(sensor.SensorId.ACCELEROMETER)
   }
 }
