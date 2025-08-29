@@ -137,7 +137,7 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
   }
 
   unlockAllOrientations(): void {
-    let orientation: window.Orientation = window.Orientation.AUTO_ROTATION_RESTRICTED;
+    let orientation: window.Orientation = window.Orientation.AUTO_ROTATION;
     this.lockToOrientation(orientation)
   }
 
