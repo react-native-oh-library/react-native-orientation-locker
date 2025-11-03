@@ -36,6 +36,12 @@ export interface Spec extends TurboModule {
    // 获取自动旋转状态
    getAutoRotateState(callback: (state: boolean) => void): void;
 
+   // 订阅加速度传感器
+   openSensor(): void;
+
+   // 取消订阅加速度传感器
+   closeSensor(): void;
+
 }
 export default TurboModuleRegistry.get<Spec>('OreitationLockerNativeModule') as Spec | null;
 

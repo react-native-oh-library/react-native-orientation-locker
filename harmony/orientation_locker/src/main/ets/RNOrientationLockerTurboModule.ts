@@ -28,7 +28,9 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
         ctx.rnInstance.emitDeviceEvent('orientationDidChange', { orientation: displayValueString })
       }
     })
+  }
 
+  openSensor() {
     sensor.on(sensor.SensorId.ACCELEROMETER, (data: sensor.AccelerometerResponse) => {
       const X = -data.x;
       const Y = -data.y;
@@ -57,10 +59,14 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
         deviceOrientationValue = "LANDSCAPE-LEFT";
       }
       if (this.lastDeviceSensorOrientationValue !== deviceOrientationValue) {
-        ctx.rnInstance.emitDeviceEvent('deviceOrientationDidChange', { deviceOrientation: deviceOrientationValue })
+        this.ctx.rnInstance.emitDeviceEvent('deviceOrientationDidChange', { deviceOrientation: deviceOrientationValue })
         this.lastDeviceSensorOrientationValue = deviceOrientationValue;
       }
     }, { interval: 100000000 });
+  }
+
+  closeSensor() {
+    sensor.off(sensor.SensorId.ACCELEROMETER);
   }
 
   private windowClass: window.Window | undefined = undefined
