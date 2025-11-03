@@ -110,6 +110,7 @@ export default class Orientation {
   };
 
   static addDeviceOrientationListener = cb => {
+    OrientationNative.openSensor();
     var key = getKey(cb);
     listeners[key] = deviceEventEmitter.addListener(
       "deviceOrientationDidChange",
@@ -126,6 +127,7 @@ export default class Orientation {
     }
     listeners[key].remove();
     listeners[key] = null;
+    OrientationNative.closeSensor();
   };
 
   static addLockListener = cb => {

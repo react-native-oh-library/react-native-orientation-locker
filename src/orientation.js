@@ -59,4 +59,8 @@ export default class Orientation {
   static getAutoRotateState = cb => {
     cb(true);
   };
+
+  static openSensor = () => {};
+
+  static closeSensor = () => {};
 }
