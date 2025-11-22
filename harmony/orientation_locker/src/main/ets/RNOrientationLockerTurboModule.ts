@@ -171,12 +171,9 @@ export class RNOrientationLockerTurboModule extends TurboModule implements TM.Or
   }
 
   getDeviceOrientation(callback: (orientation: string) => void): void {
-    let displayClass: display.Display | null = null;
     let err: string | null = null;
     try {
-      displayClass = display.getDefaultDisplaySync();
-      let AppOrientation = this.getOrientationString(displayClass.orientation);
-      callback(AppOrientation);
+      callback(this.lastDeviceSensorOrientationValue);
     } catch (e) {
       callback(err);
     }
